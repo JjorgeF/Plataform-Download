@@ -13,7 +13,7 @@ PASTA_DOWNLOADS = "/Documentos/arquivos/aut/downloadPasta"
 # Expressão regular para encontrar links do YouTube (e Shorts)
 YOUTUBE_REGEX = r'(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/|youtube\.com/shorts/)([a-zA-Z0-9_-]{11})'
 # Expressão regular para extrair o nome do arquivo da saída do yt-dlp| As vezes nem é preciso, mas bom manter
-FILENAME_REGEX = r'\[download\] Destination: (.+)'
+FILENAME_REGEX = r'\[download\] Destination: (.+)' #verificar essa linha, por não definir caminho correto, retorna erro
 
 # Configura o logging para vermos o que está acontecendo no terminal
 logging.basicConfig(
