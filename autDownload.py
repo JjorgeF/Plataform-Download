@@ -8,44 +8,42 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # --- CONFIGURAÇÃO ---
 TELEGRAM_TOKEN = "8433505098:AAEidAVqKqIEiWIC9PhzjWgKfA_sxBX40ug" # Cole o token que o BotFather te deu
-# tentar usar o caminho absoluto depois
+# Use um caminho absoluto C:\\Users\\SeuUsuario\\Downloads --> as pastas do ubuntu as vezes atrapalha devido a diferenças de permissões
 PASTA_DOWNLOADS = "/Documentos/arquivos/aut/downloadPasta"
-# Expressão regular para encontrar links do YouTube (e Shorts)
+# Expressão pra tentar ler links tanto do yt convecional, quanto do yt shorts
 YOUTUBE_REGEX = r'(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/|youtube\.com/shorts/)([a-zA-Z0-9_-]{11})'
-# Expressão regular para extrair o nome do arquivo da saída do yt-dlp| As vezes nem é preciso, mas bom manter
-FILENAME_REGEX = r'\[download\] Destination: (.+)' #verificar essa linha, por não definir caminho correto, retorna erro
+# Expressão do yt-dlp para pegar o nome do arquivo quando o yt-dlp baixa ele
+FILENAME_REGEX = r'\[download\] Destination: (.+)'
 
-# Configura o logging para vermos o que está acontecendo no terminal
+# logging para visualizar o terminal
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-# --- FUNÇÕES DO BOT ---
+# --- FUNÇÕES DO BOT TROUXA ---
 
+# função para quando os usuários enviam o /start no chat e o bot retorna isso
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Função executada quando o usuário envia /start"""
     user = update.effective_user
     await update.message.reply_html(
-        f"Fala Jubileu, {user.mention_html()}!\n\n"
-        f"Manda o link do YouTube ai pai, vou baixar e te mandar de volta.\n\n"
+        f"Fala Jubileu, vulgo {user.mention_html()}!\n\n"
+        f"Manda o link do YouTube ai pai, vou baixar e te mandar de volta."
     )
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Responde a qualquer mensagem que não seja um comando, baixando e enviando o vídeo."""
+    """Responde a qualquer mensagem que não seja um comando, baixando e enviando o áudio."""
     text = update.message.text
-    match = re.search(YOUTUBE_REGEX, text
-        f"Opa essa mensagem é de teste para saber se vc envio algo fora do script.\n\n"
-        f"Mais uma pq eu quero"
-    )
+    match = re.search(YOUTUBE_REGEX, text)
 
     if match:
-        video_url = match.group(0) # Pega o link completo encontrado
-        logger.info(f"Link do YouTube detectado: {video_url}")
+        video_url = match.group(0) # pega o link do yt ou yt shorts
+        logger.info(f"Link válido: {video_url}")
         
-        await update.message.reply_text("Link do YouTube detectado! Deixa eu baixar aqui...")
+        await update.message.reply_text("Link válido! Deixa eu baixar aqui...")
 
-        # Verifica se o yt-dlp está no PATH
+        # Verifica se o yt-dlp está no PATH -- tava tentando encontrar o pq de alguns erros -- no fim era permissão do bot ao acesso das pastas do ubuntu
+        # Solucionei dando um chmod u + w nas pastas que o bot precisa "enxergar", tanto para baixar o vídeo/áudio quanto na pasta que ele salva o arquivo e reenviar para o usuário
         ytdlp_path = shutil.which("yt-dlp")
         if not ytdlp_path:
             error_message = (
