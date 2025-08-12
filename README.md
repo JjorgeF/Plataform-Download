@@ -3,7 +3,7 @@ Tornar o download de arquivos de áudio, vídeo, entre outros formatos, possibil
 
 
 ## Download --> Áudio
-- Opções mais viáveis para downloads de músicas ou/e arquivos de áudio, dando a opção de utilizar um server web ou alguma outra plataforma de acesso online a arquivos de modo geral, para acesso de sua playlist e seus áudios.
+- Opções mais viáveis para downloads de músicas ou/e arquivos de áudio, dando a opção de utilizar um server web ou alguma outra plataforma de acesso online aos arquivos de modo geral, para acesso de sua playlist e seus áudios.
 
 
 ## Download --> Vídeo
