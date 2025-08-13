@@ -2,13 +2,13 @@ import logging
 import subprocess
 import re
 import os
-import shutil # Importação da biblioteca shutil para verificar o caminho do executável
+import shutil # Importação da biblioteca shutil para verificar o caminho do executável | Não é tão necessário, mas é bom para encontrar/evitar possíveis erros/bugs
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # --- CONFIGURAÇÃO ---
-TELEGRAM_TOKEN = "8433505098:AAEidAVqKqIEiWIC9PhzjWgKfA_sxBX40ug" # Cole o token que o BotFather te deu
-# Use um caminho absoluto C:\\Users\\SeuUsuario\\Downloads --> as pastas do ubuntu as vezes atrapalha devido a diferenças de permissões
+TELEGRAM_TOKEN = "8433505098:AAEidAVqKqIEiWIC9PhzjWgKfA_sxBX40ug" # Token da API do telegram/Whatsapp/Etc
+# Use um caminho absoluto C:\\Users\\SeuUsuario\\Downloads --> as pastas do ubuntu as vezes atrapalham devido a diferenças de permissões
 PASTA_DOWNLOADS = "/Documentos/arquivos/aut/downloadPasta"
 # Expressão pra tentar ler links tanto do yt convecional, quanto do yt shorts
 YOUTUBE_REGEX = r'(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/|youtube\.com/shorts/)([a-zA-Z0-9_-]{11})'
